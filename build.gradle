@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+// UTF-8 should be standard by now. So use it!
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.projectlombok:lombok:1.14.8',
+
+    )
+    testCompile(
+            'junit:junit:4.11',
+            'org.assertj:assertj-core:1.7.0',
+    )
+}
