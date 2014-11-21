@@ -34,7 +34,7 @@ public class Sorter {
     public void sortLikeSchwartz(List<Species> encounters) {
         encounters.stream()
                 .map(s -> asList(tardis.visitPlanetAndAskForHelp(s.getName()), s))
-                .sorted((s1, s2) -> ((Integer) s1.get(0)).compareTo(((Integer) s2.get(0))))
+                .sorted(Comparator.comparing(s -> (Integer) s.get(0)))
                 .map(s -> s.get(1))
                 .collect(toList());
     }
