@@ -11,17 +11,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SorterTest {
 
     private Sorter sorter = new Sorter();
+    private Integer numberOfSpecies = allNames().size();
 
     @Test
     public void shouldName() {
-        List<Species> allOfEm = allOfEm().stream().map(Species::new).collect(toList());
-        sorter.naive(allOfEm);
-        assertThat(allOfEm.get(0).getName()).isEqualTo("ASas");
+        List<Species> allOfEm = allSpecies();
+        sorter.sortUsingCache(allOfEm);
+        assertThat(allOfEm).hasSize(numberOfSpecies);
     }
 
-    public List<String> allOfEm() {
+    @Test
+    public void shouldSchwartz() {
+        List<Species> allOfEm = allSpecies();
+        sorter.sortLikeSchwartz(allOfEm);
+        assertThat(allOfEm).hasSize(numberOfSpecies);
+    }
+
+
+    public List<Species> allSpecies() {
+        return allNames().stream().map(Species::new).collect(toList());
+    }
+
+    public List<String> allNames() {
         return asList(
-                "Adipose‎", "Gond‎", "Ice Warriors‎", "Individual Euterpians‎", "Judoon‎", "Kaleds‎", "Karagulans", "Karfelons‎", "Minyans or Minyan descendants‎", "Neanderthals‎", "Ogrons‎", "Ood‎", "Osirians‎", "Phrynians‎", "Silurians and Sea Devils‎", "Sontarans‎", "Thals‎", "Trakenites‎", "Werewolves‎", "Zygons‎", "", "2", "Species 29", "7", "Species 7", "Humanoid", "Abzorbalovian", "Adipose", "Aeolian", "Agrovan",
+                "Adipose‎", "Gond‎", "Ice Warriors‎", "Individual Euterpians‎", "Judoon‎", "Kaleds‎", "Karagulans", "Karfelons‎", "Minyans or Minyan descendants‎", "Neanderthals‎", "Ogrons‎", "Ood‎", "Osirians‎", "Phrynians‎", "Silurians and Sea Devils‎", "Sontarans‎", "Thals‎", "Trakenites‎", "Werewolves‎", "Zygons‎", "Species 29", "Species 7", "Humanoid", "Abzorbalovian", "Adipose", "Aeolian", "Agrovan",
                 "Akker", "Alien Ambassador's species", "Alzarian", "Amazastian", "Androgum", "Anethan", "Angvian", "Annarene", "Antarian", "Anubian", "Anuran", "Apalapucian", "Aplan", "Arbitan (species)", "Arcateenian", "Archetryxian", "Argolin", "Aridian", "Arldan", "Artificial", "Asek", "Atrion", "Badger pirate", "Bajunx", "Balhoonian", "Ballustran", "Bandril", "Baroque", "Bask", "Bernustan",
                 "Betrushian (mammal)", "Betrushian (reptile)", "Blowfish", "Boor", "Brascan", "Bruydac", "Bukolian", "Cantryan", "Carrionite", "Castrovalvan", "Cat-Person", "Caxtarid", "Chameleon (humanoid)", "Charnel", "Charonid", "Cheetah Person", "Chelonian", "Chimeron", "Chlorian", "Chukwa Fel Interrogators", "Cimmerian", "Cleaning creature", "Clockworks", "Cogenian", "Crallican",
                 "Creature (The Monsters of Coal Hill School)", "Crespallion (species)", "Crinothian", "Cro-Magnon", "Cryon", "Cun", "Cyberman", "Cythosi", "Dai-ai", "The Dead", "Deltan", "Demoniac", "Dethak", "Dido person", "Diplosian", "Disciples of the Light", "Meta-Crisis Tenth Doctor", "Dogon", "Doradan", "Draconian", "Drahvin", "Drashani", "Drast", "Drebnarian", "Dreekan", "Dreilyn",

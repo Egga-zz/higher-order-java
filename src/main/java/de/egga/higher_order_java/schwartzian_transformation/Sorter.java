@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.sort;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author egga
@@ -14,18 +16,26 @@ public class Sorter {
 
     private SpaceTimeVehicle tardis = new SpaceTimeVehicle();
 
-    public void naive(List<Species> encounters) {
+    public void sortUsingCache(List<Species> encounteredSpecies) {
         Map<Species, Integer> appreciationBySpecies = new HashMap<>();
-        for (Species species : encounters) {
+        for (Species species : encounteredSpecies) {
             Integer appreciationLevel = tardis.visitPlanetAndAskForHelp(species.getName());
             appreciationBySpecies.put(species, appreciationLevel);
         }
 
-        sort(encounters, new Comparator<Species>() {
+        sort(encounteredSpecies, new Comparator<Species>() {
             @Override
             public int compare(Species o1, Species o2) {
                 return appreciationBySpecies.get(o1).compareTo(appreciationBySpecies.get(o2));
             }
         });
+    }
+
+    public void sortLikeSchwartz(List<Species> encounters) {
+        encounters.stream()
+                .map(s -> asList(tardis.visitPlanetAndAskForHelp(s.getName()), s))
+                .sorted((s1, s2) -> ((Integer) s1.get(0)).compareTo(((Integer) s2.get(0))))
+                .map(s -> s.get(1))
+                .collect(toList());
     }
 }
