@@ -19,5 +19,6 @@ dependencies {
     testCompile(
             'junit:junit:4.11',
             'org.assertj:assertj-core:1.7.0',
+            'org.mockito:mockito-all:1.10.8',
     )
 }
